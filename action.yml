@@ -116,8 +116,8 @@ runs:
           echo $tag_name
           echo "TAG_NAME=$tag_name" >> $GITHUB_ENV  
 
-    - name: Organize files
-      id: organize
+    - name: Organize files      
+      shell: bash
       run: |                             
           echo '当前执行步骤：6-组织产出文件'
           echo "当前工作目录"
