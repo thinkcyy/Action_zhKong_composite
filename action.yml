@@ -25,7 +25,7 @@ runs:
   using: "composite"
   steps:
     - name: Show system
-       shell: bash
+      shell: bash
       run: |
         echo -e "Total CPU cores\t: $(nproc)"
         cat /proc/cpuinfo | grep 'model name'
