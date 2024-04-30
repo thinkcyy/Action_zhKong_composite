@@ -52,6 +52,7 @@ runs:
           echo '当前执行步骤：6-组织产出文件'
           echo "当前工作目录"
           pwd
+          tree -L 4
           #cd ../
           rm -rf ./artifact/
           mkdir -p ./artifact/
