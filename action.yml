@@ -68,13 +68,11 @@ runs:
       #  GITHUB_ACTION_PATH: ${{ github.action_path }}      
       run:  |
           echo "当前工作目录"
-          pwd
-          cd $INPUT_PATH
+          pwd          
+          #cd $INPUT_PATH         
           echo '当前执行步骤：1-下载AgustinLorenzo/openwrt仓库'
           git clone --depth 1  https://github.com/thinkcyy/OpenWRT-Action OpenWRT-Action 
           git clone --depth 1  https://github.com/AgustinLorenzo/openwrt -b main --single-branch ./OpenWRT-Action/openwrt
-          echo "当前工作目录"
-          pwd
           tree -L 3
           
           echo '当前执行步骤：2-处理Package'
