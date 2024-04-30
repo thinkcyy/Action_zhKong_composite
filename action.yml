@@ -87,8 +87,9 @@ runs:
           ./zhKong/scripts/prepare.sh
           
           echo '当前执行步骤：3-处理自定义配置files'
+          echo $FILES_CONFIG
           if [ $FILES_CONFIG != 'public' ] ; then
-             echo 'files版本为$FILES_CONFIG'
+             echo "files版本为$FILES_CONFIG"
              cp -vr ../openwrt-config/$ROUTER_MODEL/files ./openwrt/
              chmod +x ./openwrt/files/etc/tinc/tincvpn/tinc-up
           else
