@@ -16,7 +16,7 @@ inputs:
 #   PATH: 
 #    description: 
 #    required: true
-#    default: 'pubic'   
+#    default: 'public'   
 #outputs:
 #  random-number:
 #    description: "Random number"
