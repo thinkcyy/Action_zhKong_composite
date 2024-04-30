@@ -53,7 +53,7 @@ runs:
           echo "当前工作目录"
           pwd
           tree -L 4
-          #cd ../
+          cd ./OpenWRT-Action
           rm -rf ./artifact/
           mkdir -p ./artifact/
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*sysupgrade*") ./artifact/
