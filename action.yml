@@ -17,10 +17,10 @@ inputs:
 #    description: 
 #    required: true
 #    default: 'pubic'   
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+#outputs:
+#  random-number:
+#    description: "Random number"
+#    value: ${{ steps.random-number-generator.outputs.random-number }}
 runs:
   using: "composite"
   steps:
@@ -64,12 +64,14 @@ runs:
      
     - name: Compile      
       shell: bash
-      #env:
-      #  GITHUB_ACTION_PATH: ${{ github.action_path }}      
+      env:
+        ROUTER_MODEL.: ${{ inputs.ROUTER_MODEL }}   
+        COMPILE_CONFIG: ${{ inputs.COMPILE_CONFIG }} 
+        FILES_CONFIG: ${{ inputs.FILES_CONFIG }} 
       run:  |
           echo "当前工作目录"
           pwd          
-          #cd $INPUT_PATH         
+          #cd PATH         
           echo '当前执行步骤：1-下载AgustinLorenzo/openwrt仓库'
           git clone --depth 1  https://github.com/thinkcyy/OpenWRT-Action OpenWRT-Action 
           git clone --depth 1  https://github.com/AgustinLorenzo/openwrt -b main --single-branch ./OpenWRT-Action/openwrt
@@ -81,12 +83,12 @@ runs:
           pwd 
           tree -L 3
           chmod +x ./zhKong/scripts/*.sh
-          cp -vr ./zhKong/config/$INPUT_COMPILE_CONFIG.config ./zhKong/config/config-$INPUT_ROUTER_MODEL.config
+          cp -vr ./zhKong/config/COMPILE_CONFIG.config ./zhKong/config/config-ROUTER_MODEL.config
           ./zhKong/scripts/prepare.sh
           
           echo '当前执行步骤：3-处理自定义配置files'
           #cd ./OpenWRT-Action
-          cp -vr ../openwrt-config/$INPUT_ROUTER_MODEL/files ./openwrt/
+          cp -vr ../openwrt-config/$ROUTER_MODEL/files ./openwrt/
           chmod +x ./openwrt/files/etc/tinc/tincvpn/tinc-up
           
           
@@ -98,10 +100,10 @@ runs:
           make -j$(nproc) || make -j1 V=s
           
           echo '当前执行步骤：5-打标'
-          if [ $INPUT_FILES_CONFIG != 'public' ] ; then
-             tag_name=$INPUT_COMPILE_CONFIG-$INPUT_FILES_CONFIG
+          if [ FILES_CONFIG != 'public' ] ; then
+             tag_name=COMPILE_CONFIG-FILES_CONFIG
           else
-             tag_name=$INPUT_COMPILE_CONFIG
+             tag_name=COMPILE_CONFIG
           fi
           tag_name=$tag_name-$(date +%Y%m%d-%H%M)
           echo $tag_name
@@ -114,7 +116,7 @@ runs:
           mkdir -p ./artifact/
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*sysupgrade*") ./artifact/
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*.buildinfo") ./artifact/
-          cp -r ./openwrt/.config ./artifact/defconfig-$INPUT_COMPILE_CONFIG.config
+          cp -vr ./openwrt/.config ./artifact/defconfig-COMPILE_CONFIG.config
           cd ./artifact/
           rename 's/sysupgrade.bin/sysupgrade-$tag_name.bin/' *
           ls -Ahl
