@@ -122,7 +122,7 @@ runs:
           echo '当前执行步骤：6-组织产出文件'
           echo "当前工作目录"
           pwd
-          cd ../
+          cd ./OpenWRT-Action
           rm -rf ./artifact/
           mkdir -p ./artifact/
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*sysupgrade*") ./artifact/
@@ -135,5 +135,5 @@ runs:
     - name: Upload artifact
       uses: actions/upload-artifact@main
       with:
-        name: OpenWrt-${{ env.COMPILE_CONFIG }}-${{ env.FILES_CONFIG }}-${{ env.TAG_NAME }}
+        name: OpenWrt-${{ env.TAG_NAME }}
         path: ./OpenWRT-Action/artifact/
