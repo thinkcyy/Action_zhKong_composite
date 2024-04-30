@@ -83,7 +83,7 @@ runs:
           pwd 
           tree -L 3
           chmod +x ./zhKong/scripts/*.sh
-          cp -vr ./zhKong/config/COMPILE_CONFIG.config ./zhKong/config/config-ROUTER_MODEL.config
+          cp -vr ./zhKong/config/$COMPILE_CONFIG.config ./zhKong/config/config-$ROUTER_MODEL.config
           ./zhKong/scripts/prepare.sh
           
           echo '当前执行步骤：3-处理自定义配置files'
@@ -100,10 +100,10 @@ runs:
           make -j$(nproc) || make -j1 V=s
           
           echo '当前执行步骤：5-打标'
-          if [ FILES_CONFIG != 'public' ] ; then
-             tag_name=COMPILE_CONFIG-FILES_CONFIG
+          if [ $FILES_CONFIG != 'public' ] ; then
+             tag_name=$COMPILE_CONFIG-$FILES_CONFIG
           else
-             tag_name=COMPILE_CONFIG
+             tag_name=$COMPILE_CONFIG
           fi
           tag_name=$tag_name-$(date +%Y%m%d-%H%M)
           echo $tag_name
@@ -116,7 +116,7 @@ runs:
           mkdir -p ./artifact/
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*sysupgrade*") ./artifact/
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*.buildinfo") ./artifact/
-          cp -vr ./openwrt/.config ./artifact/defconfig-COMPILE_CONFIG.config
+          cp -vr ./openwrt/.config ./artifact/defconfig-$COMPILE_CONFIG.config
           cd ./artifact/
           rename 's/sysupgrade.bin/sysupgrade-$tag_name.bin/' *
           ls -Ahl
