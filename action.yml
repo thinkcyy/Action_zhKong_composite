@@ -36,6 +36,8 @@ runs:
           mkdir OpenWRT-Action/openwrt/bin
           mkdir OpenWRT-Action/openwrt/bin/targets
           touch OpenWRT-Action/openwrt/bin/targets/test.sysupgrade.bin
+          touch OpenWRT-Action/openwrt/bin/targets/test.buildinfo
+          touch OpenWRT-Action/openwrt/.config
           echo '当前执行步骤：5-打标'
           if [ "$FILES_CONFIG" != 'public' ] ; then
              tag_name=$COMPILE_CONFIG-$FILES_CONFIG
