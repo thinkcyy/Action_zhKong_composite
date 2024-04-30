@@ -65,7 +65,7 @@ runs:
     - name: Compile      
       shell: bash
       #env:
-        GITHUB_ACTION_PATH: ${{ github.action_path }}      
+      #  GITHUB_ACTION_PATH: ${{ github.action_path }}      
       run:  |
           cd $INPUT_PATH
           echo '当前执行步骤：1-下载AgustinLorenzo/openwrt仓库'
