@@ -12,7 +12,7 @@ inputs:
   FILES_CONFIG: 
     description: 
     required: false
-    default: 'pubic'
+    default: 'public'
 #   PATH: 
 #    description: 
 #    required: true
