@@ -25,6 +25,7 @@ runs:
   using: "composite"
   steps:
     - name: Show system
+       shell: bash
       run: |
         echo -e "Total CPU cores\t: $(nproc)"
         cat /proc/cpuinfo | grep 'model name'
@@ -33,6 +34,7 @@ runs:
     - name: Init build dependencies
       env:
         DEBIAN_FRONTEND: noninteractive
+      shell: bash
       run: |
         sudo swapoff -a
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
