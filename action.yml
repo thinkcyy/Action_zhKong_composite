@@ -130,4 +130,4 @@ runs:
       uses: actions/upload-artifact@main
       with:
         name: OpenWrt-${{ env.COMPILE_CONFIG }}-${{ env.FILES_CONFIG }}-${{ env.TAG_NAME }}
-        path: ./artifact/
+        path: ./OpenWRT-Action/artifact/
