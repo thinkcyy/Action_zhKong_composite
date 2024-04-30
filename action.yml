@@ -115,7 +115,10 @@ runs:
           tag_name=$tag_name-$(date +%Y%m%d-%H%M)
           echo $tag_name
           echo "TAG_NAME=$tag_name" >> $GITHUB_ENV  
-                   
+
+    - name: Organize files
+      id: organize
+      run: |                             
           echo '当前执行步骤：6-组织产出文件'
           echo "当前工作目录"
           pwd
@@ -126,7 +129,7 @@ runs:
           cp -vrf $(find ./openwrt/bin/targets/ -type f -name "*.buildinfo") ./artifact/
           cp -vr ./openwrt/.config ./artifact/defconfig-$COMPILE_CONFIG.config
           cd ./artifact/
-          rename 's/sysupgrade.bin/sysupgrade-$tag_name.bin/' *
+          rename 's/sysupgrade.bin/sysupgrade-${{ env.TAG_NAME }}.bin/' *
           ls -Ahl
           
     - name: Upload artifact
