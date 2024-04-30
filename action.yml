@@ -31,6 +31,7 @@ runs:
         COMPILE_CONFIG: ${{ inputs.COMPILE_CONFIG }} 
         FILES_CONFIG: ${{ inputs.FILES_CONFIG }}       
       run: |
+          sudo -E apt-get  install  rename
           mkdir OpenWRT-Action
           mkdir OpenWRT-Action/openwrt
           mkdir OpenWRT-Action/openwrt/bin
